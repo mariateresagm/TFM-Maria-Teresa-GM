@@ -78,7 +78,6 @@ else:
                     except Exception as e:
                         print(f"Error inesperado al procesar el raster: {rutarastersmensuales}: {e}")
                         print(arcpy.GetMessages())
-
                 print("Proceso completado para todos los rasters.")
 
             finally:
