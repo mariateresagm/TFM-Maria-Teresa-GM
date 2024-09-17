@@ -1,7 +1,7 @@
 # Archivo: Minimo_mensual_SPEI.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite calcular el mínimo mensual de rasters SPEI,  a través de la
-# # herramienta de ArcPy "Estadísticas de celdas"
+# # herramienta de ArcPy "Cell statistics"
 
 # Importación de módulos
 import os
@@ -46,7 +46,7 @@ else:
                         rutarastersmensuales = os.path.join(arcpy.env.workspace, f'spei3_{ano_mes}.tif')
 
                         try:
-                            # Cálculo del mínimo mensual con la herramienta de ArcPy "Estadísticas de celdas"
+                            # Cálculo del mínimo mensual con la herramienta de ArcPy "Cell statistics"
                             minimomensual = CellStatistics(cuatrorasterssemanales, "MINIMUM", "DATA")
                             minimomensual.save(rutarastersmensuales)
                             print(f'Raster procesado: {rutarastersmensuales}')
@@ -59,7 +59,6 @@ else:
                         except Exception as e:
                             print(f"Error inesperado al procesar el raster: {rutarastersmensuales}: {e}")
                             print(arcpy.GetMessages())
-
                 print("Proceso completado para todos los rasters.")
 
             finally:
