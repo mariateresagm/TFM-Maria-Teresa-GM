@@ -9,8 +9,8 @@ import arcpy
 from arcpy.sa import *
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-rasters_procesados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+rasters_procesados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 arcpy.env.workspace = rasters_originales
@@ -57,7 +57,7 @@ else:
                     rutarastersmensuales = os.path.join(rasters_procesados, f'SSM{ano_mes}.tif')
 
                     try:
-                        # Cálculo de promedio mensual con la herramienta de ArcPy "Estadísticas de celdas"
+                        # Cálculo de promedio mensual con la herramienta de ArcPy "Cell statistics"
                         mediamensual = CellStatistics(rasters_del_mes, "MEAN", "DATA")
                         mediamensual.save(rutarastersmensuales)
                         print(f'Raster procesado: {rutarastersmensuales}')
