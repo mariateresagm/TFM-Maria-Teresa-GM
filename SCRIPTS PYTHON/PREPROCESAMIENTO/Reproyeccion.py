@@ -23,7 +23,7 @@ if not os.path.exists(rasters_originales):
     print(f"No se encontró el directorio de trabajo: {rasters_originales}")
 
 else:
-    # Listar rasters en el directorio de trabajo
+    # Creación de listado de archivos raster del directorio de trabajo
     rasters = arcpy.ListRasters()
 
     # Verificación de existencia de rasters
@@ -68,6 +68,7 @@ else:
                 # Liberación de la extensión Spatial Analyst
                 arcpy.CheckInExtension("Spatial")
 
+        # Error relacionado con la obtención de la licencia de Spatial Analyst
         except arcpy.ExecuteError:
             print("No se pudo obtener la extensión Spatial Analyst.")
             print(arcpy.GetMessages())
