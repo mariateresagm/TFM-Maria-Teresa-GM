@@ -1,7 +1,7 @@
 # Archivo: Media_serietemporal_SSM.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite calcular la media de la serie temporal completa de SSM
-# con la herramienta de ArcPy "Estadísticas de celdas"
+# con la herramienta de ArcPy "Cell statistics"
 
 # Importación de módulos
 import os
@@ -9,8 +9,8 @@ import arcpy
 from arcpy.sa import *
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-rasters_promediados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+rasters_promediados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 arcpy.env.workspace = rasters_originales
@@ -45,7 +45,7 @@ else:
                     # Construcción de la ruta de salida del raster de media
                     ruta_raster_media = os.path.join(rasters_promediados, 'media_ssm_2017_2023.tif')
                     try:
-                        # Cálculo del promedio de la serie temporal con la herramienta "Estadísticas de celdas"
+                        # Cálculo del promedio de la serie temporal con la herramienta "Cell statistics"
                         media = CellStatistics(rasters_ssm, "MEAN", "DATA")
                         media.save(ruta_raster_media)
                         print(f'Archivo procesado: {ruta_raster_media}')
