@@ -34,7 +34,6 @@ else:
         if not os.path.exists(rasters_reproyectados):
             os.makedirs(rasters_reproyectados)
             print(f"Directorio de salida creado: {rasters_reproyectados}")
-            
         # Comprobación de disponibilidad de la extensión de ArcGIS Spatial Analyst
         try:
             arcpy.CheckOutExtension("Spatial")
