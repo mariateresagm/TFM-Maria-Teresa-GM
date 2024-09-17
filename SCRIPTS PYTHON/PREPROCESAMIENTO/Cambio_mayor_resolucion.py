@@ -56,7 +56,7 @@ else:
                         try:
                             # Definición del nombre del nuevo raster en la nueva ruta
                             raster_remuestreado = os.path.join(rasters_remuestreados, raster)
-                            # Ejecución del remuestreo de cada raster usando la herramienta Resample
+                            # Ejecución del remuestreo de cada raster usando la herramienta "Resample"
                             remuestreo = arcpy.Resample_management(raster, raster_remuestreado, 1000, "NEAREST")
                             print(f"Raster {raster} remuestreado como {raster_remuestreado}")
 
