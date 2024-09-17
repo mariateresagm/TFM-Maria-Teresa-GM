@@ -2,7 +2,7 @@
 # Autora: María Teresa González Moreno
 # Descripción: este script permite calcular el mínimo de verano (de junio a agosto, excepto 2023, julio-agosto)
 # de los productos Surface Soil Moisture (SSM) y Soil Water Index (SWI) de Sentinel-1,  a través de la
-# # herramienta de ArcPy "Estadísticas de celdas"
+# # herramienta de ArcPy "Cell statistics"
 
 # Importación de módulos
 import os
@@ -10,8 +10,8 @@ import arcpy
 from arcpy.sa import *
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-rasters_procesados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+rasters_procesados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 arcpy.env.workspace = rasters_originales
@@ -65,7 +65,7 @@ else:
                     rutarastersmensuales = os.path.join(rasters_procesados, f'SSMminverano{ano}.tif')
                     try:
                         # Cálculo del promedio de los meses de verano ya especificados con la herramienta de ArcPy
-                        # "Estadísticas de celdas"
+                        # "Cell statistics"
                         media_verano = CellStatistics(rasters_del_ano, "MINIMUM", "DATA")
                         media_verano.save(rutarastersmensuales)
                         print(f'Raster procesado: {rutarastersmensuales}')
