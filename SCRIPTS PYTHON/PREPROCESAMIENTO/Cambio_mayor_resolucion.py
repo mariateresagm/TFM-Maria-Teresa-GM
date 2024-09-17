@@ -1,7 +1,7 @@
 # Archivo: Cambio_mayor_resolucion.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite aumentar la resolución espacial de unos archivos raster por el método del vecino
-# más próximo mediante la herramienta de ArcPy "Remuestrear"
+# más próximo mediante la herramienta de ArcPy "Resample"
 
 # Importación de módulos
 import arcpy
@@ -9,10 +9,10 @@ from arcpy import env
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-raster_extension = "ruta/a/tu/raster_extension/rasterextension.shp"
-raster_alineacion = "ruta/a/tu/raster_alineacion/rasteralineacion.shp"
-rasters_remuestreados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+raster_extension = "ruta/raster_extension/rasterextension.shp"
+raster_alineacion = "ruta/raster_alineacion/rasteralineacion.shp"
+rasters_remuestreados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 env.workspace = rasters_originales
