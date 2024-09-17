@@ -9,10 +9,10 @@ from arcpy.sa import *
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-mascara = "ruta/a/tu/archivo_mascara/mascara.shp"
-raster_alineacion = "ruta/a/tu/raster_alineacion/rasteralineacion.shp"
-rasters_procesados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+mascara = "ruta/archivo_mascara/mascara.shp"
+raster_alineacion = "ruta/raster_alineacion/rasteralineacion.shp"
+rasters_procesados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 arcpy.env.workspace = rasters_originales
