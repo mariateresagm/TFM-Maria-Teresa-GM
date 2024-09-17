@@ -10,14 +10,14 @@ library(raster)
 directorio <- "ruta/directorio/trabajo"
 
 # Listado de años para los que se quieren calcular las estadísticas
-anos <- 2017:2023
+años <- 2017:2023
 
 # Listado de tipos de índices de vegetación
 indices_veget <- c("ndvi", "ndmi", "ndre")
 
 # Creación de un dataframe para el almacenamiento de resultados
 resultados_df <- data.frame(
-  Ano = integer(),
+  Año = integer(),
   IndiceVegetacion = character(),
   Media = numeric(),
   Minimo = numeric(),
@@ -27,9 +27,9 @@ resultados_df <- data.frame(
 
 # Procesamiento por índice de vegetación y año
 for (indice in indices_veget) {
-  for (ano in anos) {
+  for (año in años) {
     # Construcción del nombre del archivo
-    nombre_raster <- sprintf("%s_s2_%d_25mmedverano.tif", indice, ano)
+    nombre_raster <- sprintf("%s_s2_%d_25mmedverano.tif", indice, año)
     ruta_raster <- file.path(directorio, nombre_raster)    
     # Verificación de la existencia del raster
     if (file.exists(ruta_raster)) {
@@ -41,7 +41,7 @@ for (indice in indices_veget) {
       maximo_valores <- max(raster_actual[], na.rm = TRUE)      
       # Agregación de resultados al dataframe
       resultados_df <- rbind(resultados_df, data.frame(
-        Ano = ano,
+        Año = año,
         IndiceVegetacion = indice,
         Media = media_valores,
         Minimo = minimo_valores,
