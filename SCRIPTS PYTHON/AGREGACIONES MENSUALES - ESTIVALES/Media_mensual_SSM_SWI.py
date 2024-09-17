@@ -3,7 +3,7 @@
 # Descripción: este script permite calcular la media mensual de rasters SSM/SWI de Sentinel-1, a través de la
 # # herramienta de ArcPy "Estadísticas de celdas"
 
-# Importación de módulos
+# Importación de móduloss
 import os
 import arcpy
 from arcpy.sa import *
