@@ -57,7 +57,7 @@ else:
                 # Procesamiento de cada raster de la carpeta
                 for raster in rasters:
                     try:
-                        # Ejecución de la reducción de resolución espacial de cada raster usando la herramienta Agregar
+                        # Ejecución de la reducción de resolución espacial de cada raster usando la herramienta "Aggregate"
                         # En este caso, mediante la media usando 40 como factor de celda (usado para pasar de 25m a 1km)
                         agregacion = Aggregate(raster, 40, "MEAN")
                         # Definición del nombre del raster en la nueva ruta
