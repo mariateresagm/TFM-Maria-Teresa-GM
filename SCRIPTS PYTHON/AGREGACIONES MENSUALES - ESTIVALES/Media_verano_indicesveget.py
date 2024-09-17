@@ -2,7 +2,7 @@
 # Autora: María Teresa González Moreno
 # Descripción: este script permite calcular el promedio de verano (de junio a agosto, excepto 2023, julio-agosto)
 # de unos índices de vegetación compuestos por 12 bandas, cada una correspondiente a un mes del año, a través de la
-# herramienta de ArcPy "Estadísticas de celdas"
+# herramienta de ArcPy "Cell statistics"
 
 # Importación de módulos
 import arcpy
@@ -10,8 +10,8 @@ from arcpy.sa import *
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-rasters_procesados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+rasters_procesados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 arcpy.env.workspace = rasters_originales
@@ -40,7 +40,6 @@ else:
             try:
                 # Procesamiento de cada raster de la carpeta
                 for raster in rasters:
-
                     try:
                         # Lectura del número de bandas del raster
                         info_raster = arcpy.Describe(raster)
@@ -62,7 +61,7 @@ else:
                                 banda_7 = arcpy.Raster(raster + "/Band_7")
                                 banda_8 = arcpy.Raster(raster + "/Band_8")
                                 # Cálculo del promedio de dichas bandas con la herramienta de ArcPy
-                                # "Estadísticas de celdas"
+                                # "Cell statistics"
                                 promedio_verano = CellStatistics([banda_7, banda_8], "MEAN", "DATA")
                             else:
                                 # Extracción de las bandas de junio, julio y agosto para los demás años
