@@ -3,7 +3,7 @@
 # Descripción: este script permite calcular el mínimo, el máximo y la media
 # anuales de cada uno de los índices de vegetación
 
-# Importación de librería
+# Importación de librerías
 library(raster)
 
 # Establecimiento del directorio de trabajo
