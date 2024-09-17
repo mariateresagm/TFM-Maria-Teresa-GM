@@ -8,7 +8,7 @@
 library(raster)
 
 # Establecimiento del directorio de trabajo
-directorio <- "ruta/a/tu/directorio/trabajo"
+directorio <- "ruta/directorio/trabajo"
 
 # Listado de rasters del directorio
 archivos_raster <- list.files(directorio, pattern = "\\.tif$", full.names = TRUE)
@@ -20,31 +20,28 @@ datos_brutos_df <- data.frame()
 for (ruta_raster in archivos_raster) {
   # Lectura del raster
   raster_actual <- raster(ruta_raster)
-  
   # Verificación de existencia de datos en el raster
   if (all(is.na(raster_actual[]))) {
     cat("El archivo", basename(ruta_raster), "solo contiene valores NA.\n")
   } else {
     # Extracción de valores de cada píxel, omitiendo los "sin dato"
     valores_pixeles <- values(raster_actual)
-    valores_pixeles <- valores_pixeles[!is.na(valores_pixeles)]
-    
+    valores_pixeles <- valores_pixeles[!is.na(valores_pixeles)]    
     # Creación de dataframe temporal con los valores de los píxeles
     datos_temporales_df <- data.frame(
       NombreArchivo = basename(ruta_raster),
       ValorPixel = valores_pixeles
-    )
-    
+    )    
     # Agregación de datos temporales al dataframe principal
     datos_brutos_df <- rbind(datos_brutos_df, datos_temporales_df)
   }
 }
 
-# Impresión de parte del dataframe
+# Impresión del comienzo del dataframe
 print(head(datos_brutos_df))
 
 # Ruta donde guardar archivo CSV con los datos
-output_csv_path <- "ruta/a/tu/directorio/salida/datosbrutos_relieve.csv"
+output_csv_path <- "ruta/directorio/salida/datosbrutos_relieve.csv"
 
 # Exportación de datos en archivo CSV
 write.csv(datos_brutos_df, output_csv_path, row.names = FALSE)
