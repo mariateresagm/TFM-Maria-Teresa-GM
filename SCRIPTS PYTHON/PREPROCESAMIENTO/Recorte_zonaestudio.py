@@ -10,9 +10,9 @@ from arcpy.sa import *
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-mascara = "ruta/a/tu/archivo_mascara/mascara.shp"
-rasters_recortados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+mascara = "ruta/archivo_mascara/mascara.shp"
+rasters_recortados = "ruta/directorio/salida"
 
 # Establecimiento del directorio de trabajo
 env.workspace = rasters_originales
@@ -37,6 +37,7 @@ else:
             if not os.path.exists(rasters_recortados):
                 os.makedirs(rasters_recortados)
                 print(f"Directorio de salida creado: {rasters_recortados}")
+                
             # Comprobación de disponibilidad de la extensión de ArcGIS Spatial Analyst
             try:
                 arcpy.CheckOutExtension("Spatial")
@@ -47,7 +48,7 @@ else:
                         # Establecimiento de la ruta de los rasters procesados
                         raster_recortado = os.path.join(rasters_recortados, raster)
                         print(f"Recortando {raster}.")
-                        # Ejecución del recorte de cada raster usando la herramienta ExtractByMask
+                        # Ejecución del recorte de cada raster usando la herramienta "ExtractByMask"
                         outExtractByMask = ExtractByMask(raster, mascara)
                         # Guardado del raster recortado
                         outExtractByMask.save(raster_recortado)
