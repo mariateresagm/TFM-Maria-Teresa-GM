@@ -9,7 +9,7 @@ import arcpy
 from arcpy.sa import *
 
 # Establecimiento del entorno de trabajo
-rasters_originales = "ruta/a/tu/directorio/trabajo"
+rasters_originales = "ruta/directorio/trabajo"
 arcpy.env.workspace = rasters_originales
 
 # Verificación de la existencia del directorio de trabajo
