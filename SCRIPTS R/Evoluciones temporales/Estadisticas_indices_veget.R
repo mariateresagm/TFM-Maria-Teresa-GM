@@ -7,7 +7,7 @@
 library(raster)
 
 # Establecimiento del directorio de trabajo
-directorio <- "ruta/a/tu/directorio/trabajo"
+directorio <- "ruta/directorio/trabajo"
 
 # Listado de años para los que se quieren calcular las estadísticas
 anos <- 2017:2023
@@ -30,18 +30,15 @@ for (indice in indices_veget) {
   for (ano in anos) {
     # Construcción del nombre del archivo
     nombre_raster <- sprintf("%s_s2_%d_25mmedverano.tif", indice, ano)
-    ruta_raster <- file.path(directorio, nombre_raster)
-    
+    ruta_raster <- file.path(directorio, nombre_raster)    
     # Verificación de la existencia del raster
     if (file.exists(ruta_raster)) {
       # Lectura del raster
-      raster_actual <- raster(ruta_raster)
-      
+      raster_actual <- raster(ruta_raster)      
       # Cálculo de estadísticas
       media_valores <- mean(raster_actual[], na.rm = TRUE)
       minimo_valores <- min(raster_actual[], na.rm = TRUE)
-      maximo_valores <- max(raster_actual[], na.rm = TRUE)
-      
+      maximo_valores <- max(raster_actual[], na.rm = TRUE)      
       # Agregación de resultados al dataframe
       resultados_df <- rbind(resultados_df, data.frame(
         Ano = ano,
@@ -61,7 +58,7 @@ for (indice in indices_veget) {
 print(resultados_df)
 
 # Ruta donde guardar archivo CSV con los resultados
-output_csv_path <- "ruta/a/tu/directorio/salida/estadisticas_indicesveget.csv"
+output_csv_path <- "ruta/directorio/salida/estadisticas_indicesveget.csv"
 
 # Exportación de resultados en archivo CSV
 write.csv(resultados_df, output_csv_path, row.names = FALSE)
