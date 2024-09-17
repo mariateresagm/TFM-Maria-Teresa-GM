@@ -1,7 +1,7 @@
 # Archivo: Definicion_royeccion.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite definir la proyección de unos archivos raster a través de la herramienta de
-# ArcPy "Definir proyección"
+# ArcPy "Define projection"
 
 # Importación de módulos del sistema
 import arcpy
@@ -33,7 +33,7 @@ else:
             # Procesamiento de cada raster de la carpeta
             for raster in rasters:
                 try:
-                    # Definición de la proyección
+                    # Definición de la proyección con la herramienta "Define projection"
                     src_origen = arcpy.SpatialReference(23030)
                     arcpy.management.DefineProjection(raster, src_origen)
                     print(f"Proyección definida del archivo: {raster}")
