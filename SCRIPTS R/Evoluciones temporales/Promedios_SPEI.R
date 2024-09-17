@@ -7,7 +7,7 @@
 library(raster)
 
 # Establecimiento del directorio de trabajo
-directorio <- "ruta/a/tu/directorio/trabajo"
+directorio <- "ruta/directorio/trabajo"
 
 # Listado de años para los que se quieren calcular sus promedios
 anos <- 2017:2023
