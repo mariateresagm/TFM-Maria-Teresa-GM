@@ -3,7 +3,7 @@
 # Descripción: este script permite aplicar una máscara binaria a unos archivos raster convirtiendo los valores 0 de
 # la primera en NoData en los segundos
 
-# Importación de módulos
+# Importación de móduloss
 import arcpy
 from arcpy.sa import *
 import os
