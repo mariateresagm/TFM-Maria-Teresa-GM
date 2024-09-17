@@ -9,7 +9,7 @@ import arcpy
 from arcpy.sa import *
 
 # Definición de rutas
-rasters_originales = "ruta/directorio/trabajo"
+rasters_originales = "ruta/directorio/trabajo",
 directorio_salida = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
