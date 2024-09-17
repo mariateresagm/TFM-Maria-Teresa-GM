@@ -1,7 +1,7 @@
 # Archivo: Reproyeccion.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite reproyectar unos archivos raster usando la herramienta de ArcPy
-# "Reproyectar raster"
+# "Project raster"
 
 # Importación de módulos
 import arcpy
@@ -9,8 +9,8 @@ from arcpy import env
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-rasters_reproyectados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+rasters_reproyectados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 env.workspace = rasters_originales
@@ -47,7 +47,7 @@ else:
                         # Generación del nombre y la ruta del raster reproyectado
                         rutafinal = os.path.join(rasters_reproyectados, f'{raster}_25830.tif')
 
-                        # Ejecución de la reproyección con la herramienta de ArcPy "Reproyectar raster"
+                        # Ejecución de la reproyección con la herramienta de ArcPy "Project raster"
                         arcpy.ProjectRaster_management(
                             rutainicial, rutafinal, sistcoord_salida,
                             "NEAREST", "1000",
@@ -62,7 +62,6 @@ else:
                     # Manejo de errores inesperados no relacionados con ArcPy
                     except Exception as e:
                         print(f"Error inesperado al procesar el raster {raster}: {e}")
-
                 print("Proceso completado para todos los rasters.")
 
             finally:
