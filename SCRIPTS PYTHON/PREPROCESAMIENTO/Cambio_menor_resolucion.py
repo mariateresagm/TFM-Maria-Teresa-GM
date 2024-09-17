@@ -1,7 +1,7 @@
 # Archivo: Cambio_menor_resolucion.py
 # Autora: María Teresa González Moreno
 # Descripción: este script permite reducir la resolución espacial de unos archivos raster a través de la media
-# mediante la herramienta de ArcPy "Agregar"
+# mediante la herramienta de ArcPy "Aggregate"
 
 import arcpy
 from arcpy import env
@@ -9,9 +9,9 @@ from arcpy.sa import *
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
-raster_alineacion = "ruta/a/tu/raster_alineacion/rasteralineacion.shp"
-rasters_agregados = "ruta/a/tu/directorio/salida"
+rasters_originales = "ruta/directorio/trabajo"
+raster_alineacion = "ruta/raster_alineacion/rasteralineacion.shp"
+rasters_agregados = "ruta/directorio/salida"
 
 # Establecimiento del entorno de trabajo
 env.workspace = rasters_originales
