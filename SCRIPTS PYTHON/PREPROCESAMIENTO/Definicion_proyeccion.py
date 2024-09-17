@@ -46,7 +46,6 @@ else:
                 except Exception as e:
                     print(f"Error inesperado al procesar el raster {raster}: {e}")
                     print(arcpy.GetMessages())
-
             print("Proceso completado para todos los rasters.")
 
         # Error relacionado con la obtención de la licencia de Spatial Analyst
