@@ -9,7 +9,7 @@ from arcpy import env
 import os
 
 # Definición de rutas
-rasters_originales = "ruta/a/tu/directorio/trabajo"
+rasters_originales = "ruta/directorio/trabajo"
 
 # Establecimiento del entorno de trabajo
 env.workspace = rasters_originales
