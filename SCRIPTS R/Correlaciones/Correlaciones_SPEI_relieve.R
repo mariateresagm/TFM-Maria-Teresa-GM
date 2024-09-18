@@ -10,7 +10,7 @@ library(raster)
 dir_relieve <- "ruta/directorio/relieve"
 dir_spei <- "ruta/directorio/spei"
 
-# Listado de archivos ráster de SPEI
+# Listado de archivos raster de SPEI
 patrones_spei <- c("agosto_spei3roncal_(\\d{4})\\.tif$", 
                    "agosto_spei6roncal_(\\d{4})\\.tif$", 
                    "agosto_spei12roncal_(\\d{4})\\.tif$", 
@@ -21,16 +21,15 @@ archivos_spei <- lapply(patrones_spei, function(patron) {
   list.files(dir_spei, pattern = patron, full.names = TRUE)
 })
 
-# Extracción de los años de los nombres de los rásters y emparejamiento
+# Extracción de los años de los nombres de los rasters y emparejamiento
 obtener_año <- function(archivos, patron) {
   años <- sub(patron, "\\1", basename(archivos))
   names(archivos) <- años
   return(archivos)
 }
-
 archivos_spei <- lapply(patrones_spei, function(patron) obtener_año(list.files(dir_spei, pattern = patron, full.names = TRUE), patron))
 
-# Carga de rásters de relieve
+# Carga de rasters de relieve
 archivos_relieve <- list.files(dir_relieve, pattern = "\\.tif$", full.names = TRUE)
 rasters_relieve <- lapply(archivos_relieve, raster)
 names(rasters_relieve) <- sub("\\.tif$", "", basename(archivos_relieve))
@@ -46,20 +45,16 @@ resultados_df <- data.frame(
 # Procesamiento de SPEI y relieve
 for (tipo_spei in seq_along(archivos_spei)) {
   for (archivo_spei in archivos_spei[[tipo_spei]]) {
-    raster_spei <- raster(archivo_spei)
-    
+    raster_spei <- raster(archivo_spei)    
     for (nombre_relieve in names(rasters_relieve)) {
-      raster_relieve <- rasters_relieve[[nombre_relieve]]
-      
+      raster_relieve <- rasters_relieve[[nombre_relieve]]      
       # Verificación de dimensiones y extensión de los rásters
       if (!compareRaster(raster_relieve, raster_spei, extent = TRUE, rowcol = TRUE, crs = TRUE, stopiffalse = FALSE)) {
         warning(paste("Los rásters no tienen las mismas dimensiones o extensión. Saltando esta comparación."))
         next
-      }
-      
-      # Cálculo de correlación de Spearman entre rásters de SPEI y de relieve
-      resultado_correlacion <- cor(raster_relieve[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")
-      
+      }      
+      # Cálculo de correlación de Spearman entre rasters de SPEI y de relieve
+      resultado_correlacion <- cor(raster_relieve[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")      
       # Adición de los resultados al dataframe
       resultados_df <- rbind(resultados_df, data.frame(
         ArchivoSPEI = basename(archivo_spei),
@@ -77,7 +72,7 @@ resultados_df <- resultados_df[order(resultados_df$ArchivoRelieve, resultados_df
 # Ruta donde guardar el archivo CSV con los resultados
 ruta_salida_csv <- "ruta/directorio/salida/COR_SPEI_RELIEVE.csv"
 
-# Exportación de los resultados en un archivo CSV
+# Exportación del CSV
 write.csv(resultados_df, ruta_salida_csv, row.names = FALSE)
 
 # Impresión de los resultados de correlaciones
