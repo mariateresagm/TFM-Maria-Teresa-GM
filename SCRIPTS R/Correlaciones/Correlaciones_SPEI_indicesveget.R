@@ -23,14 +23,12 @@ obtener_año_y_tipo <- function(archivos, patron) {
   names(archivos) <- paste(tipos, años, sep = "_")
   return(archivos)
 }
-
 archivos_spei <- obtener_año_y_tipo(archivos_spei, "agosto_spei(\\d+)roncal_(\\d{4})\\.tif$")
 archivos_indices_veg <- obtener_año_y_tipo(archivos_indices_veg, "(ndvi|ndmi|ndre)_s2_(\\d{4})_1kmmedverano\\.tif$")
 
 # Verificación de nombres asignados a los archivos
 print("Archivos SPEI con nombres asignados:")
 print(names(archivos_spei))
-
 print("Archivos de índices de vegetación con nombres asignados:")
 print(names(archivos_indices_veg))
 
@@ -56,7 +54,7 @@ for (tipo_indice_veg in tipos_indices_veg) {
       try({
         raster_veg <- raster(archivo_veg)
         raster_spei <- raster(archivo_spei)        
-        # Cálculo de correlación de Spearman entre rásters de SPEI e índices de vegetación
+        # Cálculo de correlación de Spearman entre rasters de SPEI e índices de vegetación
         resultado_correlacion <- cor(raster_veg[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")        
         # Adición de resultados al data frame
         resultados_df <- rbind(resultados_df, data.frame(Año = año, IndiceVeget = tipo_indice_veg, SPEI = tipo_spei, Correlación = resultado_correlacion, stringsAsFactors = FALSE))
@@ -72,5 +70,5 @@ print(resultados_df)
 # Ruta donde guardar el archivo CSV con los resultados
 ruta_salida_csv <- "ruta/directorio/salida/COR_INDICES_SPEI.csv"
 
-# Exportación de los resultados a un archivo CSV
+# Exportación del CSV
 write.csv(resultados_df, ruta_salida_csv, row.names = FALSE)
