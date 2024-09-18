@@ -1,7 +1,7 @@
 # Archivo: Correlaciones_SPEI_SSM_añoanterior.R
 # Autora: María Teresa González Moreno
 # Descripción: este script permite calcular correlaciones de Spearman entre
-# los distintos SPEI y la Humedad Superficial del Suelo (SSM)
+# los distintos SPEI y la Humedad Superficial del Suelo (SSM) del año anterior
 
 # Importación de la librería
 library(raster)
@@ -10,7 +10,7 @@ library(raster)
 dir_ssm <- "ruta/directorio/ssm"
 dir_spei <- "ruta/directorio/spei"
 
-# Listado de archivos ráster de SSM y SPEI
+# Listado de archivos raster de SSM y SPEI
 archivos_ssm <- list.files(dir_ssm, pattern = "SSMminverano(\\d{4})\\.tif$", full.names = TRUE)
 archivos_spei <- list.files(dir_spei, pattern = "agosto_spei(3|6|12|24|36|48)roncal_(\\d{4})\\.tif$", full.names = TRUE)
 
@@ -28,7 +28,6 @@ obtener_año_y_tipo <- function(archivos, patron, tipo = NULL) {
   names(archivos) <- paste(tipos, años, sep = "_")
   return(archivos)
 }
-
 archivos_ssm <- obtener_año_y_tipo(archivos_ssm, "SSMminverano(\\d{4})\\.tif$", tipo = "SSM")
 archivos_spei <- obtener_año_y_tipo(archivos_spei, "agosto_spei(3|6|12|24|36|48)roncal_(\\d{4})\\.tif$")
 
@@ -48,30 +47,24 @@ tipos_spei <- c("3", "6", "12", "24", "36", "48")
 for (tipo_spei in tipos_spei) {
   # Filtrado de archivos SPEI por tipo
   archivos_spei_filtrados <- archivos_spei[grepl(tipo_spei, names(archivos_spei))]
-  años_spei <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_spei_filtrados)))
-  
+  años_spei <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_spei_filtrados)))  
   for (año in años_spei) {
     # Cálculo del año anterior de SSM
-    año_anterior <- as.character(as.numeric(año) - 1)
-    
+    año_anterior <- as.character(as.numeric(año) - 1)    
     # Verificación de la existencia de un archivo de SSM del año anterior
     if (paste("SSM", año_anterior, sep = "_") %in% names(archivos_ssm)) {
       archivo_ssm <- archivos_ssm[paste("SSM", año_anterior, sep = "_")]
-      archivo_spei <- archivos_spei_filtrados[paste(tipo_spei, año, sep = "_")]
-      
+      archivo_spei <- archivos_spei_filtrados[paste(tipo_spei, año, sep = "_")]      
       try({
         raster_ssm <- raster(archivo_ssm)
-        raster_spei <- raster(archivo_spei)
-        
-        # Verificación de dimensiones y extensión de los rásters
+        raster_spei <- raster(archivo_spei)        
+        # Verificación de dimensiones y extensión de los rasters
         if (!compareRaster(raster_ssm, raster_spei, extent = TRUE, rowcol = TRUE, crs = TRUE, stopiffalse = FALSE)) {
           warning(paste("Los rásters no tienen las mismas dimensiones o extensión para el año", año, ". Saltando esta comparación."))
           next
-        }
-        
-        # Cálculo de correlación de Spearman entre rásters de SSM y tipos de SPEI
-        resultado_correlacion <- cor(raster_ssm[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")
-        
+        }        
+        # Cálculo de correlación de Spearman entre rasters de SSM y tipos de SPEI
+        resultado_correlacion <- cor(raster_ssm[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")        
         # Adición de resultados al data frame
         resultados_df <- rbind(resultados_df, data.frame(
           Año = año,
@@ -94,5 +87,5 @@ print(resultados_df)
 # Ruta donde guardar archivo CSV con los resultados
 ruta_salida_csv <- "ruta/directorio/salida/COR_SPEI_SSM_añoanterior.csv"
 
-# Exportación de resultados en archivo CSV
+# Exportación del CSV
 write.csv(resultados_df, ruta_salida_csv, row.names = FALSE)
