@@ -44,26 +44,21 @@ tipos_spei <- c("3", "6", "12", "24", "36", "48")
 # Procesamiento de tipos de índices de vegetación y SPEI
 for (tipo_indice_veg in tipos_indices_veg) {
   archivos_veg_filtrados <- archivos_indices_veg[grepl(tipo_indice_veg, names(archivos_indices_veg))]
-  años_veg <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_veg_filtrados)))
-  
+  años_veg <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_veg_filtrados)))  
   for (tipo_spei in tipos_spei) {
     archivos_spei_filtrados <- archivos_spei[grepl(tipo_spei, names(archivos_spei))]
-    años_spei <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_spei_filtrados)))
-    
-    años_comunes <- intersect(años_veg, años_spei)
-    
-    print(paste("Años comunes para", tipo_indice_veg, "y", tipo_spei, ":", paste(años_comunes, collapse = ", ")))
-    
+    años_spei <- unique(sub(".*_(\\d{4})$", "\\1", names(archivos_spei_filtrados)))    
+    años_comunes <- intersect(años_veg, años_spei)    
+    print(paste("Años comunes para", tipo_indice_veg, "y", tipo_spei, ":", paste(años_comunes, collapse = ", ")))    
     for (año in años_comunes) {
       archivo_veg <- archivos_veg_filtrados[paste(tipo_indice_veg, año, sep = "_")]
-      archivo_spei <- archivos_spei_filtrados[paste(tipo_spei, año, sep = "_")]
-      
+      archivo_spei <- archivos_spei_filtrados[paste(tipo_spei, año, sep = "_")]      
       try({
         raster_veg <- raster(archivo_veg)
-        raster_spei <- raster(archivo_spei)
-        
-        resultado_correlacion <- cor(raster_veg[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")
-        
+        raster_spei <- raster(archivo_spei)        
+        # Cálculo de correlación de Spearman entre rásters de SPEI e índices de vegetación
+        resultado_correlacion <- cor(raster_veg[], raster_spei[], method = "spearman", use = "pairwise.complete.obs")        
+        # Adición de resultados al data frame
         resultados_df <- rbind(resultados_df, data.frame(Año = año, IndiceVeget = tipo_indice_veg, SPEI = tipo_spei, Correlación = resultado_correlacion, stringsAsFactors = FALSE))
       }, silent = TRUE)
     }
