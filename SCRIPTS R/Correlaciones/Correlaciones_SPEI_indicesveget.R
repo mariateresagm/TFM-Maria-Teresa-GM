@@ -10,7 +10,7 @@ library(raster)
 dir_spei <- "ruta/directorio/spei"
 dir_indices_veg <- "ruta/directorio/indicesveget"
 
-# Listado de archivos ráster de SPEI e índices de vegetación
+# Listado de archivos raster de SPEI e índices de vegetación
 archivos_spei <- list.files(dir_spei, pattern = "agosto_spei\\d+roncal_\\d{4}\\.tif$", full.names = TRUE)
 archivos_indices_veg <- list.files(dir_indices_veg, pattern = "(ndvi|ndmi|ndre)_s2_\\d{4}_1kmmedverano\\.tif$", full.names = TRUE)
 
